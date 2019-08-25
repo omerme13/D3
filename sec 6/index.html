@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3</title>
+</head>
+<body>
+    <div class="canvas"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/6.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.1/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyDjrvYiP9rheNdo5YOv2bIoXC7lvkp8w3I",
+            authDomain: "d3-udemy-7290a.firebaseapp.com",
+            databaseURL: "https://d3-udemy-7290a.firebaseio.com",
+            projectId: "d3-udemy-7290a",
+            storageBucket: "d3-udemy-7290a.appspot.com",
+            messagingSenderId: "508324035900",
+            appId: "1:508324035900:web:d27d40e1d2d1d0d9"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+    
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
