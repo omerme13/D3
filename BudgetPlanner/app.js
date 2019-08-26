@@ -40,10 +40,6 @@ const addItem = e => {
         db.collection('expenses').add(item)
             .then(res => clearFields())
             .catch(err => console.log(err))
-
-
-
-
     } else {
         putErrorMessage('Please fill all fields');
     }
