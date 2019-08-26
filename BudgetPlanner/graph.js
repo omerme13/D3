@@ -17,14 +17,38 @@ const graph = svg.append('g')
 const pie = d3.pie()
     .sort(null)
     .value(d => d.cost)
+    // the value we are evaluating to create the pie angles
 
 const arcPath = d3.arc()
     .outerRadius(dims.radius)
-    .innerRadius(dims.radius / 2)
+    .innerRadius(dims.radius / 2);
+
+const color = d3.scaleOrdinal(d3['schemeSet3']);
 
 const update = data => {
-    console.log(data)
-}
+    // update color scale domain
+    color.domain(data.map(item => item.name));
+
+    // join enhanced (pie) data to path elements:
+    const paths = graph.selectAll('path')
+        .data(pie(data));
+
+    // handle the exit selection
+    paths.exit().remove()
+
+    // handle the current DOM path updates
+    paths.attr('d', arcPath)
+      
+    // append the enter selection to dom
+    paths.enter()
+    .append('path')
+        .attr('class', 'arc')
+        .attr('d', arcPath)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 3)
+        .attr('fill', d => color(d.data.name))
+    }
+
 var data = [];
 
 db.collection('expenses').onSnapshot(res => {

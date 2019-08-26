@@ -56,14 +56,10 @@ const update = data => {
     rects.attr('width', x.bandwidth)
         .attr('fill', () => 'orangered')
         .attr('x', d => x(d.name))
-        // .transition().duration(500)
-        //     .attr('height', d => graphHeight - y(d.orders))
-        //     .attr('y', d => y(d.orders));
 
     // append the enter selection to DOM
     rects.enter()
         .append('rect')
-        // .attr('width', x.bandwidth)
         .attr('fill', () => 'orangered')
         .attr('x', d => x(d.name))
         .attr('height', 0)
