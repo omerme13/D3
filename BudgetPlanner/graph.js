@@ -39,7 +39,7 @@ const tip = d3.tip()
     .html(d => {
         return `
             <p class="name">${d.data.name}</p>
-            <p class="cost">${d.data.cost}</p>
+            <p class="cost">${d.data.cost}$</p>
             <p class="delete-msg">click to delete</p>
         `
     })
