@@ -24,12 +24,42 @@ const yAxisGroup = graph.append('g')
 
 var data = [];
 
+const line = d3.line()
+    .x(d => x(new Date(d.date)))
+    .y(d => y(d.distance))
+
+const path = graph.append('path');
+
+const dottedLineGroup = graph.append('g');
+
+const dottedLineX = dottedLineGroup.append('line')
+    .attr('stroke', 'lightgrey')
+    .attr('stroke-width', '1')
+    .attr('stroke-dasharray', 4);
+
+const dottedLineY = dottedLineGroup.append('line')
+    .attr('stroke', 'lightgrey')
+    .attr('stroke-width', '1')
+    .attr('stroke-dasharray', 4);
+
+
+
 const update = data => {
+    data = data.filter(item => item.activity == curAct);
+
+    data.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     x.domain(d3.extent(data, d => new Date(d.date))); // i use new Date to convert the string to a date type
     y.domain([0, d3.max(data, d => d.distance)]);
 
+    path.data([data])
+        .attr('fill', 'none')
+        .attr('stroke', '#00bfa5')
+        .attr('stroke-width', 2)
+        .attr('d', line)
+
     const circles = graph.selectAll('circle')
-        .data(data.filter(item => item.activity == curAct));
+        .data(data);
 
     circles
         .attr('cx', d => x(new Date(d.date)))    
@@ -43,7 +73,38 @@ const update = data => {
         .attr('cx', d => x(new Date(d.date)))    
         .attr('cy', d => y(d.distance))    
         .attr('fill', 'lightgrey')
-         
+        
+    graph.selectAll('circle')
+        .on('mouseover', (d, i, n) => {
+            d3.select(n[i])
+                .transition('resizeCircle').duration(200)
+                .attr('fill', 'white')
+                .attr('r', 8)
+
+            dottedLineX
+                .attr('x1', x(new Date(d.date)))
+                .attr('x2', x(new Date(d.date)))
+                .attr('y1', graphHeight)
+                .attr('y2', y(d.distance))
+
+            dottedLineY
+                .attr('x1', 0)
+                .attr('x2', x(new Date(d.date)))
+                .attr('y1', y(d.distance))
+                .attr('y2', y(d.distance))
+
+            dottedLineGroup.attr('opacity', 1)       
+
+        })
+        .on('mouseout', (d, i, n) => {
+            d3.select(n[i])
+                .transition('resizeCircle').duration(200)
+                .attr('fill', 'lightgrey')
+                .attr('r', 5)
+
+            dottedLineGroup.attr('opacity', 0)       
+        })
+        
     const xAxis = d3.axisBottom(x)
         .ticks(4)
         .tickFormat(d3.timeFormat('%b %d'));

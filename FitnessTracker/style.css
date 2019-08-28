@@ -32,7 +32,7 @@ form span {
 
 .x-axis text,
 .y-axis text{
-    stroke: whitesmoke;
     font-size: 14px;
+    fill: whitesmoke;
 }
 
