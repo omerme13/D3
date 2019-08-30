@@ -1,0 +1,25 @@
+body {
+    background: whitesmoke;
+}
+
+text {
+    font-family: arial;
+    font-size: 22px;
+}
+
+h2,
+.flow-text {
+    margin: 0 0 10px;
+}
+
+.modal {
+    max-width: 500px;
+}
+
+.canvas {
+    margin-top: 40px;
+}
+
+.error {
+    color: orangered;
+}
